@@ -1,0 +1,138 @@
+body{
+    background-image: url('space2.jpg');
+    background-size: cover;
+
+}
+
+menu {
+	display: flex;
+    background-color: rgba(255,255,255,0.5)
+  }
+  
+  menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+  }
+  
+  menu li {
+	margin: 0 10px;
+  }
+  
+  menu a {
+	text-decoration: none;
+	color: #333333;
+	padding: 10px;
+  }
+  
+  menu a:hover {
+	color: #ffffff;
+	background-color: #333333;
+  }
+  
+  /* This is to make the navigation bar sticky on scroll */
+  header.sticky {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+#Welcome{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.15);
+    text-align: center;
+    font-family: 'Games', sans-serif;
+    font-size:xx-large;
+ 
+}
+.container {
+    position: relative;
+    display: inline-block;
+    width: 500px; /* adjust this value as needed */
+    height: 500px; /* adjust this value as needed */
+  }
+
+.button-container{
+    margin-top: -70px;
+    margin-bottom: 10px;
+
+}
+
+.login-button, .register-button {
+    font-family: 'Games', sans-serif;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .login-button:hover, .register-button:hover {
+    opacity: 0.4;
+  }
+  
+  #text {
+    position: center;
+    bottom: -10px; /* adjust this value as needed */
+    left: 0;
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+  }
+
+
+#Register {
+    display: none;
+    display: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.15);
+    text-align: center;
+    font-family: 'Games', sans-serif;
+    font-size:xx-large;
+    color: white;
+ }
+ 
+ #Login {
+    display: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.15);
+    text-align: center;
+    font-family: 'Games', sans-serif;
+    font-size:xx-large;
+    color: white;
+ }
+ .login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 150px;
+
+ }
+ .login-button2 {
+    font-family: 'Games', sans-serif;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+  }

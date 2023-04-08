@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>SpaceShips</title>
+    <script src="spaceships.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet">
+                
+    
+  </head>
+
+  <body>
+    <menu>
+        <ul>
+        <li><a href="#Welcome" onclick="openTab('Welcome')" >WELCOME</a></li>
+        <li><a href="#Register" onclick="openTab('Register')">REGISTER</a></li>
+        <li><a href="#Login" onclick="openTab('Login')">LOGIN</a></li>
+        </ul>
+    </menu>
+
+    <content>
+        <div id="Welcome" class="tab">
+          <div class="container">
+            <h1>Welcome</h1>
+            <img src="logo.png" alt="Italian Trulli" style="width:250px;height:250px;  position: relative; top: -20px;">
+            <div class="button-container">
+                <button class="login-button" onclick="openTab('Login')">Login</button>
+                <button class="register-button" onclick="openTab('Register')">Register</button>
+            </div>
+            <p id="text"></p>   
+          </div>
+
+          <script>
+            const textElement = document.getElementById('text');
+            const text = "Welcome to our SpaceShips GAME.\n\nWE ARE : \nRaz Moyal | 20722451\nEden Naroditky | 208697946";
+            let index = 0;
+
+            textElement.style.whiteSpace = 'pre-wrap';
+
+
+            function typeText() {
+            if (index < text.length) {
+                textElement.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeText, 80);
+            }
+            }
+            typeText();
+
+          </script>
+        </div>
+      
+        <div id="Register" class="tab">
+          Register
+        </div>
+      
+        <div id="Login" class="tab">
+          <h1>Login</h1>
+          <div class="login-container">
+            <form>
+              <label for="username">Username:</label>
+              <input type="text" id="username" name="username"><br>
+        
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password"><br>
+        
+              <button class="login-button2"> Login</button>
+            </form>
+          </div>
+        </div>
+    </content>
+
+  </body>
+
+
+
+
+</html>
