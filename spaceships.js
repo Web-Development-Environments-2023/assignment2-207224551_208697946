@@ -192,7 +192,6 @@ var timeElapsed; // the number of seconds elapsed
 var shot_key;
 
 
-
 var target; // start and end points of the target
 var targetDistance; // target distance from left
 var targetBeginning; // target distance from top
@@ -273,10 +272,6 @@ function startTimer()
    canvas.addEventListener("keydown", function(event){
     console.log('Keydown event triggered:', event.code);
 
-    if (event.code=== shot_key){
-        
-    }
-
     if (event.code === 'ArrowUp') {
         moveUp = true;
         console.log(moveUp);
@@ -341,7 +336,7 @@ function newGame()
    openTab('Game');
    shot_key = document.getElementById('shot').value;
    const timeout = document.getElementById('minutes').value;
-   console.log(shoot_key);
+   console.log(shot_key);
    resetElements(); // reinitialize all game elements
    stopTimer(); // terminate previous interval timer
 

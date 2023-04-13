@@ -8,75 +8,146 @@
     <script src="spaceships.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet">
-                
-    
+    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet">                 
   </head>
 
-  <body>
-    <menu>
+   <menu id="menu">
         <ul>
         <li><a href="#Welcome" onclick="openTab('Welcome')" >WELCOME</a></li>
         <li><a href="#Register" onclick="openTab('Register')">REGISTER</a></li>
         <li><a href="#Login" onclick="openTab('Login')">LOGIN</a></li>
+        <li><a href="#" id="open-dialog-btn">ABOUT</a></li>
         </ul>
-    </menu>
+   </menu>
 
-    <content>
-        <div id="Welcome" class="tab">
-          <div class="container">
-            <h1>Welcome</h1>
-            <img src="logo.png" alt="Italian Trulli" style="width:250px;height:250px;  position: relative; top: -20px;">
-            <div class="button-container">
-                <button class="login-button" onclick="openTab('Login')">Login</button>
-                <button class="register-button" onclick="openTab('Register')">Register</button>
+   <body>
+        <content>
+            <div id="Welcome" class="tab" >
+            <div class="container">
+                <h1>Welcome</h1>
+                <img src="logo.png" alt="Italian Trulli" style="width:250px;height:250px;  position: relative; top: -20px;">
+                <div class="welcome-buttons">
+                    <button class="login-button" onclick="openTab('Login')">Login</button>
+                    <button class="register-button" onclick="openTab('Register')">Register</button>
+                </div>
+                <p id="text"></p>   
+                <script>
+                    const textElement = document.getElementById('text');
+                    const text = "Welcome to our SpaceShips GAME.\n\nWE ARE : \nRaz Moyal | 20722451\nEden Naroditky | 208697946";
+                    let index = 0;
+                    typing(textElement, text, index)
+                </script>
             </div>
-            <p id="text"></p>   
-          </div>
+            </div>
 
-          <script>
-            const textElement = document.getElementById('text');
-            const text = "Welcome to our SpaceShips GAME.\n\nWE ARE : \nRaz Moyal | 20722451\nEden Naroditky | 208697946";
-            let index = 0;
+            <dialog id="my-dialog">
+                <h2>ABOUT</h2>
+                <p>names: Raz Moyal & Eden Naroditky</p>
+                <button id="close-dialog-btn">Close Dialog</button>
+            </dialog>
 
-            textElement.style.whiteSpace = 'pre-wrap';
-
-
-            function typeText() {
-            if (index < text.length) {
-                textElement.innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeText, 80);
-            }
-            }
-            typeText();
-
-          </script>
-        </div>
-      
-        <div id="Register" class="tab">
-          Register
-        </div>
-      
-        <div id="Login" class="tab">
-          <h1>Login</h1>
-          <div class="login-container">
-            <form>
-              <label for="username">Username:</label>
-              <input type="text" id="username" name="username"><br>
+            <script>
+                aboutDialog()
+            </script>
         
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password"><br>
+            <div id="Register" class="tab">
+            <h1>Register</h1>
+            <div class="register-container">
+                <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br>
+            
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br>
+
+                <label for="confirm password">Confirm Password:</label>
+                <input type="password" id="confirm password" name="confirm password"><br>
+
+                <label for="first name">First Name:</label>
+                <input type="text" id="first name" name="first name"><br>
+
+                <label for="last name">Last Name:</label>
+                <input type="text" id="last name" name="last name"><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br>
+
+                <label for="birthdate">Birth Date:</label>
+
+                <!-- Year -->
+                <select name="year" id="year">
+                    <option value="">--Year--</option>
+                </select>
+                
+                <!-- Month -->
+                <select name="month" id="month">
+                    <option value="">--Month--</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                
+                <!-- Day -->
+                <select name="day" id="day">
+                    <option value="">--Day--</option>
+                </select>
+                
+                <script>
+                    date()
+                </script>
+                
+                <button class="submit" onclick="register(event)">Submit</button>
+                </form>
+            </div>
+            </div>
+
+            <div id="success-message" class="tab">
+                You have been registered successfully!
+            </div>
+
         
-              <button class="login-button2"> Login</button>
-            </form>
-          </div>
-        </div>
-    </content>
+            <div id="Login" class="tab">
+            <h1>Login</h1>
+            <div class="login-container">
+                <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username2" name="username"><br>
+            
+                <label for="password">Password:</label>
+                <input type="password" id="password2" name="password"><br>
+            
+                <button class="login-button2" onclick=checkValidLogin(event)> Login</button>
+                </form>
+            </div>
+            </div>
 
-  </body>
+            <div id="Configuraiton" class="tab"> 
+            <h1>Configuration</h1>
+                <form id="conf">
+                    <label for="Choose a key for shooting:">Choose a key for shooting:</label>
+                    <input type="text" id="shot" name="shot"><br>
+                    <label for="Choose game timeout in minutes">Choose game timeout in minutes:</label>
+                    <input type="number" id="minutes" name="minutes"><br>
+                </form>
+                <div class="conf-buttons">
+                    <button class="button" id="exit-btn" onclick=exit()>EXIT</button>
+                    <button class="button" id="start-btn">Start Game</button>
+                </div>
+            </div>
 
-
-
-
+            <div id="Game" class="tab">
+                <canvas id = "theCanvas" tabindex="1"></canvas> 
+            </div>
+        
+        </content>
+    </body>
 </html>

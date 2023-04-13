@@ -1,4 +1,12 @@
+html {
+    margin: 0;
+    padding: 0;
+
+}
 body{
+
+    margin: 0;
+    padding: 0;
     background-image: url('space2.jpg');
     background-size: cover;
 
@@ -31,15 +39,6 @@ menu {
 	background-color: #333333;
   }
   
-  /* This is to make the navigation bar sticky on scroll */
-  header.sticky {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 9999;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
 
 #Welcome{
     margin: auto;
@@ -59,7 +58,7 @@ menu {
     height: 500px; /* adjust this value as needed */
   }
 
-.button-container{
+.welcome-buttons{
     margin-top: -70px;
     margin-bottom: 10px;
 
@@ -77,11 +76,11 @@ menu {
     transition: opacity 0.3s ease-in-out;
   }
 
-  .login-button:hover, .register-button:hover {
+.login-button:hover, .register-button:hover {
     opacity: 0.4;
   }
   
-  #text {
+#text {
     position: center;
     bottom: -10px; /* adjust this value as needed */
     left: 0;
@@ -89,6 +88,15 @@ menu {
     padding: 0;
     white-space: pre-wrap;
   }
+
+#my-dialog{
+    background-color:rgba(128, 128, 128, 0.8);
+    color:#ffffff;
+    border-radius: 25px;
+    font-family: 'Games', sans-serif;
+
+
+}
 
 
 #Register {
@@ -104,8 +112,20 @@ menu {
     font-size:xx-large;
     color: white;
  }
+
+#success-message{
+    display: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.15);
+    text-align: center;
+    font-family: 'Games', sans-serif;
+    font-size:xx-large;
+}
  
- #Login {
+#Login {
     display: none;
     margin: auto;
     width: 50%;
@@ -117,7 +137,7 @@ menu {
     font-size:xx-large;
     color: white;
  }
- .login-container{
+.login-container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,7 +145,7 @@ menu {
     margin-bottom: 150px;
 
  }
- .login-button2 {
+.login-button2 {
     font-family: 'Games', sans-serif;
     border-radius: 10px;
     background-color: rgba(128, 128, 128, 0.5);
@@ -135,4 +155,62 @@ menu {
     font-size: 16px;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
+}
+
+#Configuraiton{
+    display: none;
+    position: relative;
+    text-align: center;
+    font-family: 'Games', sans-serif;
+    font-size:xx-large;
+    color: white;
+}
+.conf-buttons{
+    position: absolute;
+    bottom: -180px;
+    width: 100%;
+  }
+  
+#start-btn{
+    position: absolute;
+    bottom: -100px;
+    right: 150px;
+    font-family: 'Games', sans-serif;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#exit-btn{
+    position: absolute;
+    bottom: -100px;
+    left: 150px;
+    font-family: 'Games', sans-serif;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
+  
+.button:hover {
+    opacity: 0.4;
+  }
+
+#Game{
+    display: none;
+}
+canvas {
+    width: 100%;
+    height:auto;
+    display: block;
+
   }
