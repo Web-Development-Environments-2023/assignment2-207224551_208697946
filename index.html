@@ -42,7 +42,20 @@
 
             <dialog id="my-dialog">
                 <h2>ABOUT</h2>
-                <p>names: Raz Moyal & Eden Naroditky</p>
+                <p>Names:</p>
+                <p>Raz Moyal, Eden Naroditky</p>
+                <p>About the Game:</p>
+                <p>This is a SpaceShips Game.</p> 
+                <p>For the development we used a template of the canonball Game and created the relevant functionality.</p>
+                <p>Instructions:</p>
+                <p>In the CONFIGURATION page choose a key for shooting and game time.</p>
+                <p>For movement of your spaceships use the keyboard's arows.</p>
+                <p>Results:</p>
+                <p>Champion = killed all bad spaceships.</p>
+                <p>Winer = timeout & score > 100.</p>
+                <p>Loser = killed by bad spaceships.</p>
+
+
                 <button id="close-dialog-btn">Close Dialog</button>
             </dialog>
 
@@ -145,9 +158,37 @@
             </div>
 
             <div id="Game" class="tab">
-                <canvas id = "theCanvas" tabindex="1"></canvas> 
+
+                <canvas id = "theCanvas" tabindex="1"></canvas>
+                <button id="restart"> RESTART </button>
+                <button id="exit" onclick=exitGame()>EXIT</button>
+
+                <audio id="game_music" loop>
+                    <source src="game_music.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="hit_bad">
+                    <source src="hit_bad.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="hit_good">
+                    <source src="hit_good.mp3" type="audio/mpeg">
+                </audio>
+
             </div>
+
+            <dialog id="game-over-dialog">
+                <h2>GAME OVER</h2>
+                <span id="message"></span>
+                <p>Score: <span id="score"></span></p>
+                <br>
+                <p>Game History: <span id="scores"></span></p>
+                <button id="close-dialog">Close Dialog</button>
+
+            </dialog>
         
         </content>
     </body>
+    <footer>
+        <p>Copyright © 2023 Example Company</p>
+        <p>Contact us: <a href="mailto:info@example.com">info@example.com</a></p>
+      </footer>
 </html>
