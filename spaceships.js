@@ -193,32 +193,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function updateGalaxyNameRight() {
-  currentGalaxyIndex = (currentGalaxyIndex + 1) % galaxies.length;
-  galaxyName.textContent = galaxies[currentGalaxyIndex];
-  if (currentGalaxyIndex ===0){
-    document.body.style.backgroundImage = "url('g9.gif')";
+  if (galaxySelectorRight && galaxyName) {
+    currentGalaxyIndex = (currentGalaxyIndex + 1) % galaxies.length;
+    galaxyName.textContent = galaxies[currentGalaxyIndex];
+    if (currentGalaxyIndex ===0){
+      document.body.style.backgroundImage = "url('g9.gif')";
+    }
+    else if(currentGalaxyIndex ===1){
+      document.body.style.backgroundImage = "url('g8.gif')";
+    }
+    else{
+      document.body.style.backgroundImage = "url('g7.gif')";
+    }
   }
-  else if(currentGalaxyIndex ===1){
-    document.body.style.backgroundImage = "url('g8.gif')";
-  }
-  else{
-    document.body.style.backgroundImage = "url('g7.gif')";
-  }
-  
 }
+
 function updateGalaxyNameLeft() {
-  currentGalaxyIndex = (currentGalaxyIndex - 1 + galaxies.length) % galaxies.length;
-  galaxyName.textContent = galaxies[currentGalaxyIndex];
-  if (currentGalaxyIndex ===0){
-    document.body.style.backgroundImage = "url('g9.gif')";
+  if (galaxySelectorLeft && galaxyName) {
+    currentGalaxyIndex = (currentGalaxyIndex - 1 + galaxies.length) % galaxies.length;
+    galaxyName.textContent = galaxies[currentGalaxyIndex];
+    if (currentGalaxyIndex ===0){
+      document.body.style.backgroundImage = "url('g9.gif')";
+    }
+    else if(currentGalaxyIndex ===1){
+      document.body.style.backgroundImage = "url('g8.gif')";
+    }
+    else{
+      document.body.style.backgroundImage = "url('g7.gif')";
+    }
   }
-  else if(currentGalaxyIndex ===1){
-    document.body.style.backgroundImage = "url('g8.gif')";
-  }
-  else{
-    document.body.style.backgroundImage = "url('g7.gif')";
-  }
-  
 }
 
 
