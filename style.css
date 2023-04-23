@@ -3,21 +3,28 @@ html {
     padding: 0;
 
 }
-body{
+header{
+  text-align: center;
 
-    margin: 0;
-    padding: 0;
-    background-image: url('space2.jpg');
+}
+body{
+    background-color: black;
+    background-image: url("back7.jpg");
     background-size: cover;
 
 }
 
+
 menu {
-	display: flex;
-    background-color: rgba(255,255,255,0.5)
+  	display: flex;
+    justify-content: center !important; /* add this line */
+    align-items: center !important; /* add this line */
+    text-align: center;
+
   }
   
   menu ul {
+    
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -30,17 +37,25 @@ menu {
   
   menu a {
 	text-decoration: none;
-	color: #333333;
+	color: white;
 	padding: 10px;
+  font-weight: bold;
   }
   
   menu a:hover {
 	color: #ffffff;
 	background-color: #333333;
   }
+
   
   footer{
-    color:white;
+    color:rgba(255,255,255,0.5);
+    text-align: center;
+    
+  }
+  footer a{
+    color:rgba(255,255,255,0.3);
+    text-decoration: none;
   }
 
 #Welcome{
@@ -77,6 +92,7 @@ menu {
     font-size: 16px;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
+    width: 150px; /* set a specific width value */
   }
 
 .login-button:hover, .register-button:hover {
@@ -104,10 +120,9 @@ menu {
 
 #Register {
     display: none;
-    display: none;
     margin: auto;
     width: 50%;
-    padding: 10px;
+    padding: 50px;
     border-radius: 25px;
     background-color: rgba(255,255,255,0.15);
     text-align: center;
@@ -161,16 +176,54 @@ menu {
 }
 
 #Configuraiton{
-    display: none;
-    position: relative;
-    text-align: center;
-    font-family: 'Games', sans-serif;
-    font-size:xx-large;
-    color: white;
+  display: none;
+  position: relative;
+  text-align: center;
+  font-family: 'Games', sans-serif;
+  font-size:xx-large;
+  color: white;
 }
+.background-options {
+  display: flex;
+  justify-content: center;
+
+}
+
+.background-options label {
+  cursor: pointer;
+  margin: 0 10px;
+  margin-right: 10px;
+}
+
+.background-options img {
+  border: none;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+}
+
+.background-options input[type="radio"] {
+  display: none;
+}
+
+.background-options input[type="radio"]:checked + img {
+  border: 2px solid white;
+}
+
+#configuraiton2, #configuration3{
+  display: none;
+  position: relative;
+  text-align: center;
+  font-family: 'Games', sans-serif;
+  font-size:xx-large;
+  color: white;
+}
+
+
+
 .conf-buttons{
     position: absolute;
-    bottom: -180px;
+    bottom: -50px;
     width: 100%;
   }
   
@@ -210,17 +263,40 @@ menu {
 
 #Game{
     display: none;
-}
-canvas {
-    max-width: 100%;
-    height:auto;
-    display: block;
 
-  }
+}
+.canvas-container {
+  position: fixed;
+  padding-top: calc(100vh * 1 / 8);
+  max-width: 100%;
+}
+
+#theCanvas {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  border:none;
+  outline: none;
+
+}
+
+#game-info {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  font-family: 'Games', sans-serif;
+}
+
 #restart{
   position: absolute;
-  top: 100px;
-  left: 0;
+  top:20px;
+  left: 50px;
   font-family: 'Games', sans-serif;
   border-radius: 10px;
   background-color: rgba(128, 128, 128, 0.5);
@@ -240,8 +316,8 @@ canvas {
 }
 #exit{
   position: absolute;
-  top: 150px;
-  left: 0;
+  top:20px;
+  right: 50px;
   font-family: 'Games', sans-serif;
   border-radius: 10px;
   background-color: rgba(128, 128, 128, 0.5);

@@ -8,29 +8,34 @@
     <script src="spaceships.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet">                 
+    <link href="https://fonts.cdnfonts.com/css/game" rel="stylesheet"> 
+
+          
   </head>
 
-   <menu id="menu">
-        <ul>
-        <li><a href="#Welcome" onclick="openTab('Welcome')" >WELCOME</a></li>
-        <li><a href="#Register" onclick="openTab('Register')">REGISTER</a></li>
-        <li><a href="#Login" onclick="openTab('Login')">LOGIN</a></li>
-        <li><a href="#" id="open-dialog-btn">ABOUT</a></li>
-        </ul>
-   </menu>
+  <menu id="menu">
+    <ul>
+    <li><a href="#Welcome" onclick="openTab('Welcome')" >WELCOME</a></li>
+    <li><a href="#Register" onclick="openTab('Register')">REGISTER</a></li>
+    <li><a href="#Login" onclick="openTab('Login')">LOGIN</a></li>
+    <li><a href="#" id="open-dialog-btn">ABOUT</a></li>
+    </ul>
+  </menu>
 
    <body>
         <content>
             <div id="Welcome" class="tab" >
             <div class="container">
-                <h1>Welcome</h1>
+                <!-- <h1>Welcome</h1> -->
                 <img src="logo.png" alt="Italian Trulli" style="width:250px;height:250px;  position: relative; top: -20px;">
                 <div class="welcome-buttons">
                     <button class="login-button" onclick="openTab('Login')">Login</button>
                     <button class="register-button" onclick="openTab('Register')">Register</button>
                 </div>
-                <p id="text"></p>   
+                <p id="text"></p>  
+                <audio id="welcome_sound">
+                    <source src="welcome_sound.mp3" type="audio/mpeg">
+                </audio> 
                 <script>
                     const textElement = document.getElementById('text');
                     const text = "Welcome to our SpaceShips GAME.\n\nWE ARE : \nRaz Moyal | 20722451\nEden Naroditky | 208697946";
@@ -145,21 +150,59 @@
 
             <div id="Configuraiton" class="tab"> 
             <h1>Configuration</h1>
-                <form id="conf">
-                    <label for="Choose a key for shooting:">Choose a key for shooting:</label>
-                    <input type="text" id="shot" name="shot"><br>
-                    <label for="Choose game timeout in minutes">Choose game timeout in minutes:</label>
-                    <input type="number" id="minutes" name="minutes"><br>
-                </form>
+            <form id="conf">
+                <label for="Choose a key for shooting:">Choose a key for shooting:</label>
+                <input type="text" id="shot" name="shot"><br>
+                </div>
+              </form>
                 <div class="conf-buttons">
-                    <button class="button" id="exit-btn" onclick=exit()>EXIT</button>
-                    <button class="button" id="start-btn">Start Game</button>
+                    <button class="button" id="exit-btn" onclick=exit_conf()>EXIT</button>
+                    <button class="button" id="next" onclick=openTab(configuration2)>NEXT</button>
                 </div>
             </div>
 
-            <div id="Game" class="tab">
+            <div id="configuration2" class="tab">
+                <form>
+                    <label for="Choose game timeout in minutes">Choose game timeout in minutes:</label>
+                    <input type="number" id="minutes" name="minutes"><br>
+                </form>
+                <button class="button" id="exit-btn" onclick=exit_conf()>EXIT</button>
+                <button class="button" id="next" onclick=openTab(configuration3)>NEXT</button>
+            </div>
+            
+            <div id="configuration3" class="tab">
+                <form>
+                    <label for="Choose Galaxy">Choose Galaxy:</label>
+                    <div class="background-options">
+                      <label>
+                        <input type="radio" name="background" value="background1">
+                        <img src="g5.gif" alt="Galaxy 1">
+                      </label>
+                      <label>
+                        <input type="radio" name="background" value="background2">
+                        <img src="g7.gif" alt="Galaxy 2">
+                      </label>
+                      <label>
+                        <input type="radio" name="background" value="background3">
+                        <img src="g8.gif" alt="Galaxy 3">
+                      </label>
+                </form>
+                <button class="button" id="exit-btn" onclick=exit_conf()>EXIT</button>
+                <button class="button" id="start-btn">Start Game</button>
+            </div>
 
-                <canvas id = "theCanvas" tabindex="1"></canvas>
+
+            <div id="Game" class="tab">
+                <div id="game-info">
+                    <span id="time-left"></span>
+                    <span id="lives"></span>
+                    <span id="score"></span>
+                 </div>
+
+                <div class="canvas-container">
+                    <canvas id = "theCanvas" tabindex="1"></canvas>
+                </div>
+
                 <button id="restart"> RESTART </button>
                 <button id="exit" onclick=exitGame()>EXIT</button>
 
@@ -187,8 +230,8 @@
         
         </content>
     </body>
-    <footer>
-        <p>Copyright © 2023 Example Company</p>
-        <p>Contact us: <a href="mailto:info@example.com">info@example.com</a></p>
-      </footer>
+    <footer id="footer">
+        <p>Copyright © Raz Moyal: <a href="razmoy@post.bgu.ac.il">razmoy@post.bgu.ac.il</a> | Eden Naroditky: <a href="edennar@post.bgu.ac.il">edennar@post.bgu.ac.il</a> </p>
+    </footer>
+
 </html>

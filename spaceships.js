@@ -11,12 +11,14 @@ function openTab(tabName) {
 
 function typing(textElement, text, index){
 
+    // sound = document.getElementById("welcome_sound");
+    // sound.play();
     textElement.style.whiteSpace = 'pre-wrap';
 
     if (index < text.length) {
         textElement.innerHTML += text.charAt(index);
         index++;
-        setTimeout(function() { typing(textElement, text, index); }, 80);
+        setTimeout(function() { typing(textElement, text, index); }, 70);
     
     }
 }
@@ -146,6 +148,8 @@ function checkValidLogin(event){
     if( username=="p" && password=="testuser"){
         document.getElementById('login-form').reset();
         document.getElementById('menu').style.display = "none";
+        document.body.style.backgroundImage = "url('back.gif')";
+        document.getElementById('footer').style.display = "none";
         openTab('Configuraiton');
         return true;
     }
@@ -154,6 +158,8 @@ function checkValidLogin(event){
         if (users[username] == password){
             document.getElementById('login-form').reset();
             document.getElementById('menu').style.display = "none";
+            document.body.style.backgroundImage = "url('back.gif')";
+            document.getElementById('footer').style.display = "none";
             openTab('Configuraiton');
             return true;
         }
@@ -164,7 +170,12 @@ function checkValidLogin(event){
     }
     alert("no such a username")
     return false;
+}
 
+function exit_conf(){
+  document.body.style.backgroundImage = "url('back7.jpg')";
+  openTab('Welcome');
+  document.getElementById('menu').style.display = "flex";
 }
 
 
@@ -175,9 +186,6 @@ var context; // used for drawing on the canvas
 
 // constants for game play
 var BAD_NUM = 20;
-var TARGET_PIECES = 20; // sections in the target
-var MISS_PENALTY = 2; // seconds deducted on a miss
-var HIT_REWARD = 3; // seconds added on a hit
 var TIME_INTERVAL = 25; // screen refresh interval in milliseconds
 var LIVES = 3;
 var COUNTER = 4;
@@ -193,16 +201,7 @@ var shot_key;
 var score;
 var scores = [];
 
-
-var target; // start and end points of the target
-var targetDistance; // target distance from left
-var targetBeginning; // target distance from top
-var targetEnd; // target bottom's distance from top
-var pieceLength; // length of a target piece
-var initialTargetVelocity; // initial target speed multiplier
-var targetVelocity; // target speed multiplier during game
-
-
+var badVelocity; // target speed multiplier during game
 var bad;
 var badImg;
 var badImg1;
@@ -221,22 +220,20 @@ var moveDown;
 var moveRight;
 var moveLeft;
 
+var ballImg;
 
-var lineWidth; // width of the target and blocker
+
 var hitStates; // is each target piece hit?
-var targetPiecesHit; // number of target pieces hit (out of 7)
+var badPiecesHit; // number of target pieces hit (out of 7)
 
 // variables for the cannon and cannonball
-var cannonball; // cannonball image's upper-left corner
-var cannonballVelocity; // cannonball's velocity
-var cannonballVelocityX;
-var cannonballVelocityY;
-var cannonballOnScreen; // is the cannonball on the screen
-var cannonballRadius; // cannonball radius
-var cannonballSpeed; // cannonball speed
-var cannonBaseRadius; // cannon base radius
-var cannonLength; // cannon barrel length
-var barrelEnd; // the end point of the cannon's barrel
+var goodBall; // cannonball image's upper-left corner
+var goodBallVelocity; // cannonball's velocity
+var goodBallVelocityX;
+var goodBallVelocityY;
+var goodBallOnScreen; // is the cannonball on the screen
+var goodBallRadius; // cannonball radius
+var goodBallSpeed; // cannonball speed
 var canvasWidth; // width of the canvas
 var canvasHeight; // height of the canvas
 
@@ -248,8 +245,6 @@ var restart;
 
 // variables for sounds
 var hit_bad;
-var cannonSound;
-var blockerSound;
 var game_music;
 var hit_good;
 
@@ -267,15 +262,15 @@ function setupGame()
    document.getElementById( "start-btn" ).addEventListener( 
       "click", newGame, false );
 
-   target = new Object(); // object representing target line
-   target.start = new Object(); // will hold x-y coords of line start
-   target.end = new Object(); // will hold x-y coords of line end
-   cannonball = new Object(); // object representing cannonball point
+  
+   goodBall = new Object(); // object representing cannonball point
 
    badBall = new Object();
    badBall2 = new Object();
 
    restart = document.getElementById( "restart" );
+   exit = document.getElementById( "exit" );
+
 
 
    bad = [];
@@ -300,6 +295,11 @@ function setupGame()
    rows = 4;
    cols = 5;
 
+   ballImg = new Image();
+   ballImg.src= 'ball.png';
+   ballImg.width = 60;
+   ballImg.height=60;
+
 
    good = new Object();
    goodImg = new Image();
@@ -313,8 +313,6 @@ function setupGame()
 
    // get sounds
    hit_bad = document.getElementById( "hit_bad" );
-   cannonSound = document.getElementById( "cannonSound" );
-   blockerSound = document.getElementById( "blockerSound" );
    game_music = document.getElementById("game_music");
    hit_good = document.getElementById("hit_good");
    hit_good.volume = 1;
@@ -341,7 +339,6 @@ function startTimer()
         moveLeft = true;
       }
    });
-//    canvas.addEventListener( "click", fireCannonball, false );
 
    restart.addEventListener("click", newGame);
    intervalTimer = window.setInterval( updatePositions, TIME_INTERVAL );
@@ -350,7 +347,6 @@ function startTimer()
 // terminate interval timer
 function stopTimer()
 {
-   canvas.removeEventListener( "click", fireCannonball, false );
    game_music.pause();
    window.clearInterval( intervalTimer );
    game_music.currentTime = 0;
@@ -361,22 +357,22 @@ function stopTimer()
 // relative to the size of the canvas before the game begins
 function resetElements()
 {
-   const dpr = window.devicePixelRatio || 1;
-   canvas.width = window.innerWidth * dpr;
-   canvas.height = window.innerHeight * dpr;
-   context.scale(dpr, dpr);
 
+   const dpr = window.devicePixelRatio || 1;
+   canvas.width = document.documentElement.clientWidth * dpr;
+   canvas.height = (window.innerHeight*7/8) * dpr;
+   context.scale(dpr, dpr);
 
    var w = canvas.width;
    var h = canvas.height;
    canvasWidth = w; // store the width
    canvasHeight = h; // store the height
-   cannonBaseRadius = h / 18; // cannon base radius 1/18 canvas height
-   cannonLength = w / 8; // cannon length 1/8 canvas width
-   cannonballRadius = w / 90; // cannonball radius 1/36 canvas width
-   cannonballSpeed = w * 3 / 2; // cannonball speed multiplier
+   goodBallRadius = w / 90; // cannonball radius 1/36 canvas width
+   goodBallSpeed = w * 3 / 2; // cannonball speed multiplier
    badballSpeed = w * 0.2;
 
+   COUNTER=4;
+   TIME_FOR_SPEED = 5;
    LIVES=3;
    score=0;
    startX =0;
@@ -402,16 +398,8 @@ function resetElements()
 
 
    // configure instance variables related to the target
-   targetDistance = w * 1 / 8; // target 7/8 canvas width from left
-   targetBeginning = h / 10; // distance from top 1/8 canvas height
-   targetEnd = w * 7/8; // distance from top 7/8 canvas height
 
-   pieceLength = badImg.width;
-   initialTargetVelocity = -h / 8; // initial target speed multiplier
-   target.start.x = targetDistance;
-   target.start.y = targetBeginning;
-   target.end.x = targetEnd;
-   target.end.y = targetBeginning;
+   badVelocity = -h / 8; // initial target speed multiplier
 
    good.x = canvasWidth/2;
    good.y = canvasHeight * 6/8;
@@ -421,6 +409,10 @@ function resetElements()
 // reset all the screen elements and start a new game
 function newGame()
 {
+    const backgroundOptions = document.getElementsByName('background');
+    const selectedBackground = Array.from(backgroundOptions).find(option => option.checked)
+    document.body.style.backgroundImage = `url(${selectedBackground.nextElementSibling.src})`;
+
     shot_key = document.getElementById('shot').value;
     timeLeft = document.getElementById('minutes').value * 60;
     if(shot_key==="" || timeLeft==="" ){
@@ -441,10 +433,9 @@ function newGame()
    for (var i = 0; i < BAD_NUM; ++i)
       hitStates[i] = false; // target piece not destroyed
 
-   targetPiecesHit = 0; // no target pieces have been hit
-   targetVelocity = initialTargetVelocity; // set initial velocity
+   badPiecesHit = 0; // no target pieces have been hit
    timerCount = 0; // the timer has fired 0 times so far
-   cannonballOnScreen = false; // the cannonball is not on the screen
+   goodBallOnScreen = false; // the cannonball is not on the screen
    shotsFired = 0; // set the initial number of shots fired
    timeElapsed = 0; // set the time elapsed to zero
 
@@ -460,15 +451,28 @@ function newGame()
 
 
 
+function handleResize() {
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = (window.innerHeight*7/8) * dpr;
+  context.scale(dpr, dpr);
+
+  canvasWidth = canvas.width;
+  canvasHeight = canvas.height;
+}
+
 // called every TIME_INTERVAL milliseconds
 function updatePositions()
 {
-    var update = TIME_INTERVAL / 1000.0 * targetVelocity;
+    console.log("canvas.width: ", canvas.width);
+    console.log("window.innerWidth: ", window.innerWidth);
+    console.log(badVelocity);
+    var update = TIME_INTERVAL / 1000.0 * badVelocity;
     for(var i =0; i< BAD_NUM ; i++){
         bad[i].x += update;
     }
     if(bad[0].x < 0 || bad[19].x > canvasWidth){
-        targetVelocity *= -1; 
+        badVelocity *= -1; 
     }
 
     var interval2 = TIME_INTERVAL / 1000.0;
@@ -503,48 +507,56 @@ function updatePositions()
     const MOVE_DISTANCE = 60;
 
     if (moveUp == true && good.y > canvasHeight*0.6){
-        good.y -= MOVE_DISTANCE;
-        moveUp = false;
+        if (good.y - MOVE_DISTANCE >= canvasHeight*0.6) {
+            good.y -= MOVE_DISTANCE;
+      }
+      moveUp = false;
     }
-    if (moveDown == true && good.y < canvasHeight){
-        good.y += MOVE_DISTANCE;
-        moveDown = false;
+     if (moveDown == true && good.y < canvasHeight*7/8){
+        if (good.y + MOVE_DISTANCE <= canvasHeight*7/8) {
+             good.y += MOVE_DISTANCE;
+      }
+      moveDown = false;
     }
-    if (moveRight == true && good.x < canvas.width){
-        good.x += MOVE_DISTANCE;
-        moveRight = false;
-    }
+    if (moveRight == true && good.x < canvasWidth - goodImg.width){
+      if (good.x + MOVE_DISTANCE <= canvasWidth - goodImg.width) {
+          good.x += MOVE_DISTANCE;
+      }
+      moveRight = false;
+  }
     if (moveLeft == true && good.x > 0){
-        good.x -= MOVE_DISTANCE;
-        moveLeft = false;
+        if (good.x - MOVE_DISTANCE >= 0) {
+          good.x -= MOVE_DISTANCE;
+        }
+      moveLeft = false;
     }
 
-   if (cannonballOnScreen) // if there is currently a shot fired
+   if (goodBallOnScreen) // if there is currently a shot fired
    {
       // update cannonball position
       var interval = TIME_INTERVAL / 1000.0;
 
-      cannonball.x += interval * cannonballVelocityX;
-      cannonball.y += interval * cannonballVelocityY;
+      goodBall.x += interval * goodBallVelocityX;
+      goodBall.y += interval * goodBallVelocityY;
 
 
 
       // check for collisions with top and bottom walls
-      if (cannonball.y + cannonballRadius > canvasHeight || 
-         cannonball.y - cannonballRadius < 0)
+      if (goodBall.y + goodBallRadius > canvasHeight || 
+         goodBall.y - goodBallRadius < 0)
       {
-         cannonballOnScreen = false; // make the cannonball disappear
+         goodBallOnScreen = false; // make the cannonball disappear
       } // end else if
       
       //check for collision with bad spaceships
       for(var i =0; i < BAD_NUM; i++){
-        if( cannonball.x >= bad[i].x && cannonball.x <= bad[i].x +badImg.width && cannonball.y >= bad[i].y && 
-            cannonball.y <= bad[i].y + badImg.height  && !hitStates[i] ){
+        if( goodBall.x >= bad[i].x && goodBall.x <= bad[i].x +badImg.width && goodBall.y >= bad[i].y && 
+            goodBall.y <= bad[i].y + badImg.height  && !hitStates[i] ){
             hit_bad.play();
             hitStates[i] = true;
-            cannonballOnScreen = false;
+            goodBallOnScreen = false;
             score += (20 - bad[i].row * 5);
-            if (++targetPiecesHit == TARGET_PIECES)
+            if (++badPiecesHit == BAD_NUM)
             {
                stopTimer(); // game over so stop the interval timer
                draw(); // draw the game pieces one final time
@@ -554,36 +566,6 @@ function updatePositions()
             break;
         }
       }
-
-    //   // check for cannonball collision with target
-    //   if (cannonballVelocityX > 0 && 
-    //      cannonball.x + cannonballRadius >= targetDistance &&
-    //      cannonball.x + cannonballRadius <= targetDistance + lineWidth &&
-    //      cannonball.y - cannonballRadius > target.start.y &&
-    //      cannonball.y + cannonballRadius < target.end.y)
-    //   {
-    //      // determine target section number (0 is the top)
-    //      var section = 
-    //         Math.floor((cannonball.y  - target.start.y) / pieceLength);
-
-    //      // check whether the piece hasn't been hit yet
-    //      if ((section >= 0 && section < TARGET_PIECES) && 
-    //         !hitStates[section])
-    //      {
-    //         targetSound.play(); // play target hit sound
-    //         hitStates[section] = true; // section was hit
-    //         cannonballOnScreen = false; // remove cannonball
-    //         timeLeft += HIT_REWARD; // add reward to remaining time
-
-    //         // if all pieces have been hit
-    //         if (++targetPiecesHit == TARGET_PIECES)
-    //         {
-    //            stopTimer(); // game over so stop the interval timer
-    //            draw(); // draw the game pieces one final time
-    //            showGameOverDialog("You Won!"); // show winning dialog
-    //         } // end if
-    //      } // end if
-    //   } // end else if
    } // end if
 
    ++timerCount; // increment the timer event counter
@@ -596,7 +578,7 @@ function updatePositions()
       timerCount = 0; // reset the count
 
       if(--TIME_FOR_SPEED == 0 && COUNTER!= 0){
-        targetVelocity = targetVelocity*1.5
+        badVelocity = badVelocity*1.5
         badballSpeed = badballSpeed*1.5
         TIME_FOR_SPEED =5;
         COUNTER -= 1;
@@ -626,23 +608,21 @@ function updatePositions()
 function fireCannonball(event)
 {
    console.log("shot!");
-   if (cannonballOnScreen) // if a cannonball is already on the screen
+   if (goodBallOnScreen) // if a cannonball is already on the screen
       return; // do nothing
 
    // move the cannonball to be inside the cannon
-   cannonball.x = good.x + (goodImg.width/2); // align x-coordinate with cannon
-   cannonball.y = good.y; // centers ball vertically
+   goodBall.x = good.x + (goodImg.width/2); // align x-coordinate with cannon
+   goodBall.y = good.y; // centers ball vertically
 
    // get the x component of the total velocity
-   cannonballVelocityX = 0;
+   goodBallVelocityX = 0;
 
    // get the y component of the total velocity
-   cannonballVelocityY = -cannonballSpeed;
-   cannonballOnScreen = true; // the cannonball is on the screen
+   goodBallVelocityY = -goodBallSpeed;
+   goodBallOnScreen = true; // the cannonball is on the screen
    ++shotsFired; // increment shotsFired
 
-   // play cannon fired sound
-//    cannonSound.play();
 } // end function fireCannonball
 
 
@@ -653,41 +633,41 @@ function draw()
     
    canvas.width = canvas.width; // clears the canvas (from W3C docs)
 
-   // display time remaining
-   context.fillStyle = "white";
-   context.font = "30px Arial";
-   context.textBaseline = "top";
+   // display time , slives, score
    var minutes = Math.floor(timeLeft / 60);
    var seconds = timeLeft % 60;
-   context.fillText("Time: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds, 5, 5);
-   context.fillText("Lives: " + LIVES, 5, 45);
-   context.fillText("Score: " + score, 5, 85);
-
+   document.getElementById("time-left").textContent = "Time: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "  ";
+   document.getElementById("lives").textContent = "Lives: " + LIVES + "  ";
+   document.getElementById("score").textContent = "Score: " + score;
 
 
    // if a cannonball is currently on the screen, draw it
-   if (cannonballOnScreen)
+   if (goodBallOnScreen)
    { 
       context.fillStyle = "gray";
       context.beginPath();
-      context.arc(cannonball.x, cannonball.y, cannonballRadius, 0, Math.PI * 2);
+      context.arc(goodBall.x, goodBall.y, goodBallRadius, 0, Math.PI * 2);
       context.closePath();
       context.fill();
    } // end if
 
-     // draw the cannonball on the canvas
-     context.fillStyle = "red";
-     context.beginPath();
-     context.arc(badBall.x, badBall.y, cannonballRadius, 0, Math.PI * 2);
-     context.closePath();
-     context.fill();
+    //  // draw the cannonball on the canvas
+    context.drawImage(ballImg, badBall.x,  badBall.y, ballImg.width, ballImg.height);
+    context.drawImage(ballImg, badBall2.x,  badBall2.y, ballImg.width, ballImg.height);
 
-      // draw the cannonball on the canvas
-      context.fillStyle = "red";
-      context.beginPath();
-      context.arc(badBall2.x, badBall2.y, cannonballRadius, 0, Math.PI * 2);
-      context.closePath();
-      context.fill();
+
+    //  context.fillStyle = "red";
+    //  context.beginPath();
+    //  context.arc(badBall.x, badBall.y, goodBallRadius, 0, Math.PI * 2);
+    //  context.closePath();
+    //  context.fill();
+
+    //   // draw the cannonball on the canvas
+    //   context.fillStyle = "red";
+    //   context.beginPath();
+    //   context.arc(badBall2.x, badBall2.y, goodBallRadius, 0, Math.PI * 2);
+    //   context.closePath();
+    //   context.fill();
 
    // draw the good spaceship
    context.drawImage(goodImg, good.x, good.y, goodImg.width, goodImg.height);
@@ -711,36 +691,11 @@ function draw()
             context.drawImage(badImg, bad[i].x, bad[i].y, badImg.width, badImg.height);
         } 
    }
-
-
-//    // initialize currentPoint to the starting point of the target
-//    var currentPoint = new Object();
-//    currentPoint.x = target.start.x;
-//    currentPoint.y = target.start.y; 
-
-//    // draw the target
-//    for(var j=0; j<4; ++j){
-
-//         for (var i = 0; i < TARGET_PIECES/4; ++i)
-//         {
-//         // if this target piece is not hit, draw it
-//         if (!hitStates[i])
-//         {
-//             context.drawImage(img, currentPoint.x, currentPoint.y, 10, 20);
-//         } // end if
-        
-//         // move currentPoint to the start of the next piece
-//         currentPoint.x += pieceLength;
-//         } // end for
-//         currentPoint.y += img.height;
-//         currentPoint.x = target.start.x;
-//    }
-   
+ 
 } // end function draw
 
 
 // display an alert when the game ends
-
 function showGameOverDialog(message)
 {
   console.log("dialog");
@@ -767,15 +722,14 @@ function showGameOverDialog(message)
         dialog.close();
       });
 
-
-  //  alert(message + "\nShots fired: " + shotsFired + 
-  //     "\nTotal time: " + timeElapsed + " seconds ");
 } // end function showGameOverDialog
 
 function exitGame(){
   stopTimer();
   scores = [];
-  document.getElementById('menu').style.display = "block";
+  document.body.style.backgroundImage = "url('back7.jpg')";
+  document.getElementById('menu').style.display = "flex";
+  document.getElementById('footer').style.display = "block";
   openTab('Welcome')
 }
 
