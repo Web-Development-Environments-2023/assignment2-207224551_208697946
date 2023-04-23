@@ -151,12 +151,20 @@
             <div id="Configuraiton" class="tab"> 
             <h1>Configuration</h1>
             <form id="conf">
-                <label for="Choose a key for shooting:">Choose a key for shooting:</label>
-                <input type="text" id="shot" name="shot"><br>
-                <label for="Choose game timeout in minutes">Choose game timeout in minutes:</label>
-                <input type="number" id="minutes" name="minutes"><br>
+                <label for="Choose a key for shooting:">shooting key:</label><br>
+                <input type="text" id="shot" name="shot"><br><br>
+                <label for="Choose game timeout in minutes">timeout:</label><br>
+                <input type="number" id="minutes" name="minutes"><br><br>
                 <label for="Choose Galaxy">Choose Galaxy:</label>
-                <div class="background-options">
+
+                <div id="GalaxySelector">
+                    <button id="GalaxySelectorLeft" onclick=updateGalaxyNameLeft()>&lt;</button>
+                    <div id="GalaxyName">Milky Way</div>
+                    <button id="GalaxySelectorRight" onclick=updateGalaxyNameRight()>&gt;</button>
+                </div>
+                <!-- <input type="hidden" id="GalaxyInput" name="GalaxyInput" value="milkyWay"> -->
+
+                <!-- <div class="background-options">
                   <label>
                     <input type="radio" name="background" value="background1">
                     <img src="g5.gif" alt="Galaxy 1">
@@ -169,9 +177,8 @@
                     <input type="radio" name="background" value="background3">
                     <img src="g8.gif" alt="Galaxy 3">
                   </label>
-                </div>
+                </div> -->
               </form>
-            
                 <div class="conf-buttons">
                     <button class="button" id="exit-btn" onclick=exit_conf()>EXIT</button>
                     <button class="button" id="start-btn">Start Game</button>

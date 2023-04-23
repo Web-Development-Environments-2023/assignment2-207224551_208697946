@@ -11,16 +11,13 @@ body{
     background-color: black;
     background-image: url("back7.jpg");
     background-size: cover;
-
 }
-
 
 menu {
   	display: flex;
     justify-content: center !important; /* add this line */
     align-items: center !important; /* add this line */
     text-align: center;
-
   }
   
   menu ul {
@@ -176,14 +173,53 @@ menu {
 }
 
 #Configuraiton{
+  margin: auto;
+  width: 30%;
+  padding: 50px;
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 10px 5px #8928c5;
+  background-color: rgba(133, 6, 153, 0.3);
   display: none;
   position: relative;
   text-align: center;
   font-family: 'Games', sans-serif;
-  font-size:xx-large;
+  font-size: x-large;
   color: white;
+  border-image: linear-gradient(to right, #8928c5, #6b00b6, #8928c5) 1;
+  border-image-slice: 1;
 }
-.background-options {
+
+input[id="shot"], input[id="minutes"] {
+  background-color: rgba(255,255,255,0.3);
+  border: none;
+  text-align: center;
+}
+
+#GalaxySelector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#GalaxyName {
+  margin: 0 20px;
+}
+
+#GalaxySelectorLeft, #GalaxySelectorRight {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: xx-large;
+  cursor: pointer;
+}
+
+#GalaxySelectorLeft:hover, #GalaxySelectorRight:hover {
+  color: #8928c5;
+}
+
+/* .background-options {
   display: flex;
   justify-content: center;
 
@@ -198,8 +234,8 @@ menu {
 .background-options img {
   border: none;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
 }
 
 .background-options input[type="radio"] {
@@ -208,14 +244,12 @@ menu {
 
 .background-options input[type="radio"]:checked + img {
   border: 2px solid white;
-}
-
-
+} */
 
 
 .conf-buttons{
     position: absolute;
-    bottom: -50px;
+    /* bottom: -10px; */
     width: 100%;
   }
   

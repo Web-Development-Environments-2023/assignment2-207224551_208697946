@@ -148,7 +148,7 @@ function checkValidLogin(event){
     if( username=="p" && password=="testuser"){
         document.getElementById('login-form').reset();
         document.getElementById('menu').style.display = "none";
-        document.body.style.backgroundImage = "url('back.gif')";
+        document.body.style.backgroundImage = "url('g9.gif')";
         document.getElementById('footer').style.display = "none";
         openTab('Configuraiton');
         return true;
@@ -158,7 +158,7 @@ function checkValidLogin(event){
         if (users[username] == password){
             document.getElementById('login-form').reset();
             document.getElementById('menu').style.display = "none";
-            document.body.style.backgroundImage = "url('back.gif')";
+            document.body.style.backgroundImage = "url('g9.gif')";
             document.getElementById('footer').style.display = "none";
             openTab('Configuraiton');
             return true;
@@ -176,6 +176,49 @@ function exit_conf(){
   document.body.style.backgroundImage = "url('back7.jpg')";
   openTab('Welcome');
   document.getElementById('menu').style.display = "flex";
+  document.getElementById('footer').style.display = "block";
+}
+
+var galaxies = ['Milky Way', 'Andromeda', 'Whirlpool Galaxy'];
+var currentGalaxyIndex = 0;
+var galaxySelectorLeft;
+var galaxySelectorRight;
+var galaxyName;
+
+document.addEventListener("DOMContentLoaded", function() {
+      galaxySelectorLeft = document.getElementById('GalaxySelectorLeft');
+      galaxySelectorRight = document.getElementById('GalaxySelectorRight');
+      galaxyName = document.getElementById('GalaxyName');
+});
+
+
+function updateGalaxyNameRight() {
+  currentGalaxyIndex = (currentGalaxyIndex + 1) % galaxies.length;
+  galaxyName.textContent = galaxies[currentGalaxyIndex];
+  if (currentGalaxyIndex ===0){
+    document.body.style.backgroundImage = "url('g9.gif')";
+  }
+  else if(currentGalaxyIndex ===1){
+    document.body.style.backgroundImage = "url('g8.gif')";
+  }
+  else{
+    document.body.style.backgroundImage = "url('g7.gif')";
+  }
+  
+}
+function updateGalaxyNameLeft() {
+  currentGalaxyIndex = (currentGalaxyIndex - 1 + galaxies.length) % galaxies.length;
+  galaxyName.textContent = galaxies[currentGalaxyIndex];
+  if (currentGalaxyIndex ===0){
+    document.body.style.backgroundImage = "url('g9.gif')";
+  }
+  else if(currentGalaxyIndex ===1){
+    document.body.style.backgroundImage = "url('g8.gif')";
+  }
+  else{
+    document.body.style.backgroundImage = "url('g7.gif')";
+  }
+  
 }
 
 
@@ -409,9 +452,9 @@ function resetElements()
 // reset all the screen elements and start a new game
 function newGame()
 {
-    const backgroundOptions = document.getElementsByName('background');
-    const selectedBackground = Array.from(backgroundOptions).find(option => option.checked)
-    document.body.style.backgroundImage = `url(${selectedBackground.nextElementSibling.src})`;
+    // const backgroundOptions = document.getElementsByName('background');
+    // const selectedBackground = Array.from(backgroundOptions).find(option => option.checked)
+    // document.body.style.backgroundImage = `url(${selectedBackground.nextElementSibling.src})`;
 
     shot_key = document.getElementById('shot').value;
     timeLeft = document.getElementById('minutes').value * 60;
