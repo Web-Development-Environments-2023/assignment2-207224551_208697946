@@ -9,9 +9,9 @@ Register: fill in all fileds to create a user to the game.
 
 Login: provide user name and password to enter the game.
 
-Configuration:    * choose keyboard key for shooting (letters & space)  
-                  * choose game timeout (minutes)  
-                  * choose galaxy.   
+Configuration: choose keyboard key for shooting (letters & space)  
+&ensp choose game timeout (minutes)  
+&ensp choose galaxy.   
                 
 Game: move your spaceship with keyboard arrows and shoot with your chosen key.   
       goal: kill all bad spaceships!  
