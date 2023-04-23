@@ -200,10 +200,10 @@ function updateGalaxyNameRight() {
       document.body.style.backgroundImage = "url('g9.gif')";
     }
     else if(currentGalaxyIndex ===1){
-      document.body.style.backgroundImage = "url('g8.gif')";
+      document.body.style.backgroundImage = "url('g12.gif')";
     }
     else{
-      document.body.style.backgroundImage = "url('g7.gif')";
+      document.body.style.backgroundImage = "url('g11.gif')";
     }
   }
 }
@@ -216,10 +216,10 @@ function updateGalaxyNameLeft() {
       document.body.style.backgroundImage = "url('g9.gif')";
     }
     else if(currentGalaxyIndex ===1){
-      document.body.style.backgroundImage = "url('g8.gif')";
+      document.body.style.backgroundImage = "url('g12.gif')";
     }
     else{
-      document.body.style.backgroundImage = "url('g7.gif')";
+      document.body.style.backgroundImage = "url('g11.gif')";
     }
   }
 }
