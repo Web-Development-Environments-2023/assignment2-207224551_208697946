@@ -106,12 +106,29 @@ menu {
   }
 
 #my-dialog{
-    background-color:rgba(128, 128, 128, 0.8);
-    color: black;
-    border-radius: 25px;
-    font-family: 'Games', sans-serif;
+  background-color: rgba(128, 128, 128, 0.9);
+  color: black;
+  border-radius: 25px;
+  font-family: 'Games', sans-serif;
+  text-align: center;
+  overflow-y: scroll;
+  max-height: 80vh;
+  padding: 20px;
+  transition: opacity 0.2s ease-in-out;
 
+}
 
+#my-dialog::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+#my-dialog::-webkit-scrollbar-thumb {
+  background-color: #555; /* Set the color of the thumb */
+  border-radius: 10px; /* Round the corners of the thumb */
+}
+
+#my-dialog::-webkit-scrollbar-track {
+  background-color: #ccc; /* Set the color of the track */
 }
 
 

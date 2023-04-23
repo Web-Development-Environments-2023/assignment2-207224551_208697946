@@ -687,15 +687,42 @@ function draw()
    document.getElementById("score").textContent = "Score: " + score;
 
 
-   // if a cannonball is currently on the screen, draw it
-   if (goodBallOnScreen)
-   { 
-      context.fillStyle = "gray";
-      context.beginPath();
-      context.arc(goodBall.x, goodBall.y, goodBallRadius, 0, Math.PI * 2);
-      context.closePath();
-      context.fill();
-   } // end if
+   if (goodBallOnScreen) {
+    // Define triangle coordinates
+    var x1 = goodBall.x - goodBallRadius/2;
+    var y1 = goodBall.y + goodBallRadius;
+    var x2 = goodBall.x;
+    var y2 = goodBall.y - goodBallRadius;
+    var x3 = goodBall.x + goodBallRadius/2;
+    var y3 = goodBall.y + goodBallRadius;
+  
+    // Draw shadow
+    context.fillStyle = "rgba(0, 0, 255, 0.2)";
+    context.beginPath();
+    context.moveTo(x1 + 10, y1 + 10);
+    context.lineTo(x2 + 5, y2 + 5);
+    context.lineTo(x3 - 5, y3 + 5);
+    context.lineTo(x1 - 10, y1 + 10);
+    context.closePath();
+    context.fill();
+  
+    // Draw triangle
+    context.fillStyle = "blue";
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.lineTo(x3, y3);
+    context.closePath();
+    context.fill();
+  } // end if
+  //  if (goodBallOnScreen)
+  //  { 
+  //     context.fillStyle = "gray";
+  //     context.beginPath();
+  //     context.arc(goodBall.x, goodBall.y, goodBallRadius, 0, Math.PI * 2);
+  //     context.closePath();
+  //     context.fill();
+  //  } // end if
 
     //  // draw the cannonball on the canvas
     context.drawImage(ballImg, badBall.x,  badBall.y, ballImg.width, ballImg.height);
@@ -746,11 +773,13 @@ function showGameOverDialog(message)
 {
   console.log("dialog");
   var dialog = document.getElementById("game-over-dialog");
-  var scoreElement = document.getElementById("score");
+  var scoreElement = document.getElementById("score1");
+
   var messageElement = document.getElementById("message");
   var scoresElement = document.getElementById("scores");
 
   messageElement.textContent = message;
+
   scoreElement.textContent = score;
   scoresElement.innerHTML = ""; // clear existing scores
   scores.sort(function(a, b){return b-a});
