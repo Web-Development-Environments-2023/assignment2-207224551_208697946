@@ -5,9 +5,9 @@ our site: https://web-development-environments-2023.github.io/assignment2-207224
 
 This is a SpaceShip game. 
 
-Register: fill in all fileds to create a user to the game. 
+Register: fill in all fileds to create a user to the game.
 Login: provide user name and password to enter the game. 
-Configuration: choose keyboard key for shooting (letters & space)
+Configuration: choose keyboard key for shooting (letters & space) 
                choose game timeout (minutes)
                choose galaxy. 
 Game: move your spaceship with keyboard arrows and shoot with your chosen key. 
