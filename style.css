@@ -46,12 +46,12 @@ menu {
 
   
   footer{
-    color:rgba(255,255,255,0.5);
+    color:rgba(255,255,255,0.6);
     text-align: center;
     
   }
   footer a{
-    color:rgba(255,255,255,0.3);
+    color:rgba(255,255,255,0.6);
     text-decoration: none;
   }
 
@@ -130,6 +130,33 @@ menu {
 #my-dialog::-webkit-scrollbar-track {
   background-color: #ccc; /* Set the color of the track */
 }
+#close-dialog-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#close-dialog-btn:before,
+#close-dialog-btn:after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background-color: black;
+}
+
+#close-dialog-btn:before {
+  transform: rotate(45deg);
+}
+
+#close-dialog-btn:after {
+  transform: rotate(-45deg);
+}
 
 
 #Register {
@@ -144,6 +171,20 @@ menu {
     font-size:xx-large;
     color: white;
  }
+ .submit {
+  font-family: 'Games', sans-serif;
+  border-radius: 10px;
+  background-color: rgba(128, 128, 128, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
+}
+.submit:hover {
+  opacity: 0.4;
+}
 
 #success-message{
     display: none;
@@ -187,6 +228,9 @@ menu {
     font-size: 16px;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
+}
+.login-button2:hover {
+  opacity: 0.4;
 }
 
 #Configuraiton{
@@ -327,13 +371,7 @@ input[id="shot"], input[id="minutes"] {
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
 }
-#game-over-dialog{
-  background-color:rgba(128, 128, 128, 0.8);
-  color: black;
-  border-radius: 25px;
-  font-family: 'Games', sans-serif;
 
-}
 #exit{
   position: absolute;
   top:20px;
@@ -347,4 +385,39 @@ input[id="shot"], input[id="minutes"] {
   font-size: 16px;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
+}
+
+#game-over-dialog{
+  background-color:rgba(128, 128, 128, 0.8);
+  color: black;
+  border-radius: 25px;
+  font-family: 'Games', sans-serif;
+}
+
+#close-dialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#close-dialog:before,
+#close-dialog:after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background-color: black;
+}
+
+#close-dialog:before {
+  transform: rotate(45deg);
+}
+
+#close-dialog:after {
+  transform: rotate(-45deg);
 }
