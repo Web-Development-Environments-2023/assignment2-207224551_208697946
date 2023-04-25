@@ -293,6 +293,7 @@ var restart;
 var hit_bad;
 var game_music;
 var hit_good;
+var shot_sound;
 
 // called when the app first launches
 function setupGame()
@@ -362,6 +363,9 @@ function setupGame()
    game_music = document.getElementById("game_music");
    hit_good = document.getElementById("hit_good");
    hit_good.volume = 1;
+   shot_sound = document.getElementById("shot_sound");
+   shot_sound.volume = 1;
+
 } // end function setupGame
 
 // set up interval timer to update game
@@ -668,6 +672,7 @@ function fireCannonball(event)
    goodBallVelocityY = -goodBallSpeed;
    goodBallOnScreen = true; // the cannonball is on the screen
    ++shotsFired; // increment shotsFired
+   shot_sound.play();
 
 } // end function fireCannonball
 
