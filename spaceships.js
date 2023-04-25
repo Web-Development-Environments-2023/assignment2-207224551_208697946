@@ -473,6 +473,11 @@ function newGame()
         alert("Minimum 2 minutes")
         return false;
     }
+    else if(!/^[a-zA-Z\s]$/.test(shot_key)) {
+        alert("Please enter a valid letter or space key");
+        return false;
+    }
+    
 
    openTab('Game');
    resetElements(); // reinitialize all game elements
