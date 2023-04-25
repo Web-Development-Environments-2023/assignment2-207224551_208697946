@@ -11,15 +11,12 @@ function openTab(tabName) {
 
 function typing(textElement, text, index){
 
-    // sound = document.getElementById("welcome_sound");
-    // sound.play();
     textElement.style.whiteSpace = 'pre-wrap';
 
     if (index < text.length) {
         textElement.innerHTML += text.charAt(index);
         index++;
         setTimeout(function() { typing(textElement, text, index); }, 70);
-    
     }
 }
 
@@ -288,6 +285,7 @@ var badBall2;
 var badballSpeed; 
 
 var restart;
+var exit;
 
 // variables for sounds
 var hit_bad;
@@ -329,13 +327,10 @@ function setupGame()
    badImg.src = 'bad7.png';
    badImg.width = 80;
    badImg.height = 80;
-
    badImg1  = new Image();
    badImg1.src = 'bad1.png';
- 
    badImg2  = new Image();
    badImg2.src = 'bad6.png';
-
    badImg3  = new Image();
    badImg3.src = 'bad8.png';
 
@@ -444,10 +439,6 @@ function resetElements()
     badBall.y = bad[index].y + badImg.height;
     badBall2.x = bad[index].x + (badImg.width / 2);
     badBall2.y = bad[index].y + badImg.height;
-    console.log('badBall:', badBall); 
-
-
-   // configure instance variables related to the target
 
    badVelocity = -h / 8; // initial target speed multiplier
 
@@ -459,9 +450,6 @@ function resetElements()
 // reset all the screen elements and start a new game
 function newGame()
 {
-    // const backgroundOptions = document.getElementsByName('background');
-    // const selectedBackground = Array.from(backgroundOptions).find(option => option.checked)
-    // document.body.style.backgroundImage = `url(${selectedBackground.nextElementSibling.src})`;
 
     shot_key = document.getElementById('shot').value;
     timeLeft = document.getElementById('minutes').value * 60;
@@ -506,22 +494,9 @@ function newGame()
 
 
 
-function handleResize() {
-  var dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = (window.innerHeight*7/8) * dpr;
-  context.scale(dpr, dpr);
-
-  canvasWidth = canvas.width;
-  canvasHeight = canvas.height;
-}
-
 // called every TIME_INTERVAL milliseconds
 function updatePositions()
 {
-    console.log("canvas.width: ", canvas.width);
-    console.log("window.innerWidth: ", window.innerWidth);
-    console.log(badVelocity);
     var update = TIME_INTERVAL / 1000.0 * badVelocity;
     for(var i =0; i< BAD_NUM ; i++){
         bad[i].x += update;
@@ -595,7 +570,6 @@ function updatePositions()
       goodBall.y += interval * goodBallVelocityY;
 
 
-
       // check for collisions with top and bottom walls
       if (goodBall.y + goodBallRadius > canvasHeight || 
          goodBall.y - goodBallRadius < 0)
@@ -666,7 +640,6 @@ function fireCannonball(event)
    if (goodBallOnScreen) // if a cannonball is already on the screen
       return; // do nothing
 
-   // move the cannonball to be inside the cannon
    goodBall.x = good.x + (goodImg.width/2); // align x-coordinate with cannon
    goodBall.y = good.y; // centers ball vertically
 
