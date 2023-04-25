@@ -679,7 +679,7 @@ function draw()
     
    canvas.width = canvas.width; // clears the canvas (from W3C docs)
 
-   // display time , slives, score
+   // display time , lives, score
    var minutes = Math.floor(timeLeft / 60);
    var seconds = timeLeft % 60;
    document.getElementById("time-left").textContent = "Time: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "  ";
@@ -715,32 +715,11 @@ function draw()
     context.closePath();
     context.fill();
   } // end if
-  //  if (goodBallOnScreen)
-  //  { 
-  //     context.fillStyle = "gray";
-  //     context.beginPath();
-  //     context.arc(goodBall.x, goodBall.y, goodBallRadius, 0, Math.PI * 2);
-  //     context.closePath();
-  //     context.fill();
-  //  } // end if
 
-    //  // draw the cannonball on the canvas
+    // draw the bad ball on the canvas
     context.drawImage(ballImg, badBall.x,  badBall.y, ballImg.width, ballImg.height);
     context.drawImage(ballImg, badBall2.x,  badBall2.y, ballImg.width, ballImg.height);
 
-
-    //  context.fillStyle = "red";
-    //  context.beginPath();
-    //  context.arc(badBall.x, badBall.y, goodBallRadius, 0, Math.PI * 2);
-    //  context.closePath();
-    //  context.fill();
-
-    //   // draw the cannonball on the canvas
-    //   context.fillStyle = "red";
-    //   context.beginPath();
-    //   context.arc(badBall2.x, badBall2.y, goodBallRadius, 0, Math.PI * 2);
-    //   context.closePath();
-    //   context.fill();
 
    // draw the good spaceship
    context.drawImage(goodImg, good.x, good.y, goodImg.width, goodImg.height);
@@ -782,11 +761,14 @@ function showGameOverDialog(message)
 
   scoreElement.textContent = score;
   scoresElement.innerHTML = ""; // clear existing scores
+  var count =0;
   scores.sort(function(a, b){return b-a});
   var ul = document.createElement("ul");
   for (var i = 0; i < scores.length; i++) {
     var li = document.createElement("li");
-    li.textContent = scores[i];
+    li.style.listStyleType = "none";
+    count++;
+    li.textContent = count +"." + " " + scores[i];
     ul.appendChild(li);
   }
   scoresElement.appendChild(ul);

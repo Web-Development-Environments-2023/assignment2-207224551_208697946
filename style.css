@@ -321,9 +321,13 @@ input[id="shot"], input[id="minutes"] {
 
 }
   
-.button:hover {
-    opacity: 0.4;
-  }
+#start-btn:hover {
+  opacity: 0.4;
+}
+#exit-btn:hover{
+  opacity: 0.4;
+
+}
 
 #Game{
     display: none;
@@ -385,6 +389,14 @@ input[id="shot"], input[id="minutes"] {
   font-size: 16px;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
+}
+
+#restart:hover{
+  opacity: 0.4;
+}
+#exit:hover {
+  opacity: 0.4;
+
 }
 
 #game-over-dialog{
